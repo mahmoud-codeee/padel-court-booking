@@ -70,9 +70,10 @@ php artisan schedule:work
 ```bash
 cd frontend
 npm install
-cp .env .env.local   # or edit .env directly — VITE_API_URL should point at the backend above
 npm run dev
 ```
+
+`frontend/.env` already points `VITE_API_URL` at `http://127.0.0.1:8000/api` (the default `php artisan serve` address) — only change it, or add a git-ignored `.env.local` override, if your backend runs elsewhere.
 
 The app is now available at `http://localhost:5173` — the client booking flow at `/`, the admin dashboard at `/admin/login`.
 

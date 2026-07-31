@@ -15,7 +15,6 @@
 # Frontend (React/Vite)
 /frontend/node_modules/
 /frontend/dist/
-/frontend/.env
 /frontend/.env.local
 
 # Editors / OS

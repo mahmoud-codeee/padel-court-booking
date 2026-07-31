@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\AuthController;
+use App\Http\Controllers\Api\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\Api\Admin\CourtClosureController;
 use App\Http\Controllers\Api\Admin\CourtController;
 use App\Http\Controllers\Api\Admin\CourtWorkingHourController;
@@ -39,5 +40,9 @@ Route::prefix('admin')->group(function () {
         Route::post('discount-tiers', [DiscountTierController::class, 'store']);
         Route::put('discount-tiers/{tier}', [DiscountTierController::class, 'update']);
         Route::delete('discount-tiers/{tier}', [DiscountTierController::class, 'destroy']);
+
+        Route::get('bookings', [AdminBookingController::class, 'index']);
+        Route::patch('bookings/{booking}/mark-paid', [AdminBookingController::class, 'markPaid']);
+        Route::patch('bookings/{booking}/cancel', [AdminBookingController::class, 'cancel']);
     });
 });

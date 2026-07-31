@@ -9,7 +9,9 @@ class PricingService
 {
     public function getSettings(): PricingSetting
     {
-        return PricingSetting::query()->findOrFail(1);
+        // Singleton table by convention (exactly one row) — don't assume its id is 1,
+        // since MySQL auto-increment isn't reset by test transaction rollbacks.
+        return PricingSetting::query()->firstOrFail();
     }
 
     public function updateBasePrice(float $basePricePerHour): PricingSetting

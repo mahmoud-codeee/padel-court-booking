@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         );
 
         PricingSetting::query()->updateOrCreate(
-            ['id' => 1],
+            [], // singleton table: match the existing row if any, else create the first one
             [
                 'base_price_per_hour' => 5.000,
                 'currency' => env('PRICING_CURRENCY', 'OMR'),

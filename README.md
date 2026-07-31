@@ -99,14 +99,13 @@ cd backend
 php artisan test
 ```
 
-Tests run against a **separate MySQL database** (not the dev one), because the booking-concurrency and court-assignment logic relies on real row-level locking and native `ENUM`/`JSON` columns that SQLite can't faithfully emulate. Create it once and grant your DB user access:
+Tests run against a **separate MySQL database** (not the dev one), because the booking-concurrency and court-assignment logic relies on real row-level locking and native `ENUM`/`JSON` columns that SQLite can't faithfully emulate. Create it once (defaults in `backend/phpunit.xml` assume `root` with no password on `127.0.0.1:3306` — adjust there if your local MySQL differs):
 
 ```sql
 CREATE DATABASE padel_booking_test;
-GRANT ALL PRIVILEGES ON padel_booking_test.* TO 'your_user'@'localhost';
 ```
 
-Then set the `DB_*` values under `<php>` in `backend/phpunit.xml` to match. Coverage includes: court auto-assignment (same-court-for-contiguous-hours preference, fallback per-hour assignment, conflict detection), the full booking creation flow (pricing tiers, cash vs. online status/hold behavior, working-hours/closure/exhaustion rejection, slot release), the public API (past-date validation, 409 conflict handling, and — importantly — that court identity never appears in any client-facing response), and admin authentication.
+Coverage includes: court auto-assignment (same-court-for-contiguous-hours preference, fallback per-hour assignment, conflict detection), the full booking creation flow (pricing tiers, cash vs. online status/hold behavior, working-hours/closure/exhaustion rejection, slot release), the public API (past-date validation, 409 conflict handling, and — importantly — that court identity never appears in any client-facing response), and admin authentication.
 
 ## Key Design Decisions
 

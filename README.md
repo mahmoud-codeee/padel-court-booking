@@ -86,12 +86,11 @@ For the Thawani webhook (`POST /api/webhooks/thawani`) to reach your local backe
 ## Admin Login
 
 ```
-URL:      http://localhost:5173/admin/login
-Email:    admin@padel.local
-Password: REDACTED
+URL:   http://localhost:5173/admin/login
+Email: admin@padel.local
 ```
 
-Configurable via `ADMIN_EMAIL` / `ADMIN_PASSWORD` in `backend/.env` before running `php artisan migrate --seed`.
+Created via the database seeder — see `.env.example`. No password is committed to this repo: set `ADMIN_PASSWORD` in your own `backend/.env` before seeding, or leave it blank and `php artisan migrate --seed` will generate one and print it to the terminal once (save it immediately — it isn't shown again, and re-running the seeder afterwards won't reset it). `ADMIN_EMAIL` is also configurable there if you don't want the default.
 
 ## Running Tests
 

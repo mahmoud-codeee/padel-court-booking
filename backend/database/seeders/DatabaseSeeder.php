@@ -8,6 +8,7 @@ use App\Models\DiscountTier;
 use App\Models\PricingSetting;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,13 +19,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Admin::query()->updateOrCreate(
-            ['email' => env('ADMIN_EMAIL', 'admin@padel.local')],
-            [
-                'name' => 'Admin',
-                'password' => env('ADMIN_PASSWORD', 'REDACTED'),
-            ]
-        );
+        $adminEmail = env('ADMIN_EMAIL', 'admin@padel.local');
+        $adminPassword = env('ADMIN_PASSWORD');
+        $existingAdmin = Admin::query()->where('email', $adminEmail)->first();
+
+        if (filled($adminPassword)) {
+            // Explicit ADMIN_PASSWORD in .env always wins, including on re-seed.
+            Admin::query()->updateOrCreate(['email' => $adminEmail], ['name' => 'Admin', 'password' => $adminPassword]);
+        } elseif ($existingAdmin) {
+            // No password provided and the admin already exists — leave their
+            // (possibly already-changed) password alone rather than resetting it.
+            $existingAdmin->update(['name' => 'Admin']);
+        } else {
+            // First-ever seed with no ADMIN_PASSWORD set — generate one rather than
+            // shipping a guessable default in a public repo. Shown once, here only.
+            $generatedPassword = Str::password(16);
+            Admin::query()->create(['email' => $adminEmail, 'name' => 'Admin', 'password' => $generatedPassword]);
+            $this->command?->warn("No ADMIN_PASSWORD set — generated one for {$adminEmail}: {$generatedPassword}");
+            $this->command?->warn('Save it now (e.g. into your .env as ADMIN_PASSWORD) — it will not be shown again.');
+        }
 
         PricingSetting::query()->updateOrCreate(
             [], // singleton table: match the existing row if any, else create the first one

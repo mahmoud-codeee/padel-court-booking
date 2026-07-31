@@ -19,9 +19,20 @@ export default function DashboardLayout() {
   return (
     <div className="min-h-screen bg-background md:flex">
       <aside className="border-b bg-card md:w-56 md:shrink-0 md:border-b-0 md:border-r">
-        <div className="px-4 py-5">
-          <p className="font-semibold">Padel Admin</p>
-          {admin && <p className="truncate text-xs text-muted-foreground">{admin.email}</p>}
+        <div className="flex items-start justify-between px-4 py-5">
+          <div>
+            <p className="font-semibold">Padel Admin</p>
+            {admin && <p className="truncate text-xs text-muted-foreground">{admin.email}</p>}
+          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
+            onClick={() => logout.mutate()}
+            aria-label="Log out"
+          >
+            <LogOut className="h-4 w-4" />
+          </Button>
         </div>
         <nav className="flex gap-1 overflow-x-auto px-2 pb-2 md:flex-col md:overflow-visible md:pb-4">
           {navItems.map(({ to, label, icon: Icon }) => (

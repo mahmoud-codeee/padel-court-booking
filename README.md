@@ -37,7 +37,7 @@ Hosted on Railway (Laravel API + MySQL) and Vercel (React SPA). Online payment v
 
 ## Prerequisites
 
-- PHP 8.2+ with the `openssl`, `pdo_mysql`, `mbstring`, `curl`, `fileinfo`, `zip` extensions
+- PHP 8.4+ with the `openssl`, `pdo_mysql`, `mbstring`, `curl`, `fileinfo`, `zip` extensions
 - Composer
 - MySQL 8 (or compatible) reachable from the backend
 - Node.js 18+ and npm
@@ -129,6 +129,5 @@ Coverage includes: court auto-assignment (same-court-for-contiguous-hours prefer
 
 ## Notes
 
-- No live deployment — the project runs locally per the steps above (optional per the assignment brief).
 - The client interface requires no account; only a phone number is mandatory per booking (name/email optional).
 - Admin can close a single court, several courts, or the entire venue for a date (optionally a partial time range instead of the full day).

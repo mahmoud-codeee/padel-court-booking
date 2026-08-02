@@ -8,7 +8,7 @@ An online booking platform for a padel venue: a public, no-login client booking 
 - **Admin dashboard**: https://frontend-nine-blond-5v3rf0171e.vercel.app/admin/login
   - Email: `admin@padel.local`
   - Password: `PadelDemo_2026!Xk`
-- **Backend API base URL**: `https://backend-production-941c.up.railway.app/api` — there's no route at that exact path (it 404s by design, like any REST API base prefix); try e.g. [`/api/pricing`](https://backend-production-941c.up.railway.app/api/pricing) to see a live response
+- **Backend API**: to see it directly (not just through the apps above), open [`/api/pricing`](https://backend-production-941c.up.railway.app/api/pricing) for a live JSON response — the bare API host has no route of its own and 404s if opened by itself, so don't click that
 
 Hosted on Railway (Laravel API + MySQL) and Vercel (React SPA). Online payment via Thawani isn't testable on the live demo (no real sandbox credentials configured — see [Setup §3](#3-thawani-online-payments)); "Pay on arrival" works end-to-end.
 

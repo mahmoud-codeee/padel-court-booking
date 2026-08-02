@@ -25,3 +25,9 @@ Thumbs.db
 
 # Dev scripts local state
 /scripts/*.log
+
+# Personal/tooling files - not part of the deliverable
+/requirements.md
+/technical-guidelines.md
+/start.bat
+/.claude/

@@ -12,9 +12,9 @@ class ThawaniService
 {
     private string $baseUrl;
 
-    private string $secretKey;
+    private ?string $secretKey;
 
-    private string $publishableKey;
+    private ?string $publishableKey;
 
     public function __construct()
     {

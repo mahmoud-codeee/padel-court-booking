@@ -2,6 +2,16 @@
 
 An online booking platform for a padel venue: a public, no-login client booking flow and an authenticated admin dashboard, built on a Laravel API with a separate React SPA frontend.
 
+## Live Demo
+
+- **Client booking flow**: https://frontend-nine-blond-5v3rf0171e.vercel.app
+- **Admin dashboard**: https://frontend-nine-blond-5v3rf0171e.vercel.app/admin/login
+  - Email: `admin@padel.local`
+  - Password: `PadelDemo_2026!Xk`
+- **Backend API**: https://backend-production-941c.up.railway.app/api
+
+Hosted on Railway (Laravel API + MySQL) and Vercel (React SPA). Online payment via Thawani isn't testable on the live demo (no real sandbox credentials configured — see [Setup §3](#3-thawani-online-payments)); "Pay on arrival" works end-to-end.
+
 ## Technologies Used
 
 **Backend**

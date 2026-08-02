@@ -83,6 +83,8 @@ The backend ships pointed at Thawani's UAT sandbox (`THAWANI_BASE_URL` in `.env`
 
 For the Thawani webhook (`POST /api/webhooks/thawani`) to reach your local backend, it needs to be publicly reachable (e.g. via `ngrok http 8000` and a matching Thawani sandbox webhook URL) — not required to exercise the rest of the app.
 
+**Windows troubleshooting**: if "Pay online" fails even with real sandbox keys set, and your Laravel log (`backend/storage/logs/laravel.log`) shows a `cURL error 60: SSL certificate ... unable to get local issuer certificate`, PHP on Windows doesn't ship a CA bundle out of the box. Download one (e.g. `https://curl.se/ca/cacert.pem`) and point `curl.cainfo` and `openssl.cafile` at it in your `php.ini`, then restart `php artisan serve`.
+
 ## Admin Login
 
 ```

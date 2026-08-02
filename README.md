@@ -91,10 +91,6 @@ The app is now available at `http://localhost:5173` — the client booking flow 
 
 The backend ships pointed at Thawani's UAT sandbox (`THAWANI_BASE_URL` in `.env`), but `THAWANI_SECRET_KEY` / `THAWANI_PUBLISHABLE_KEY` are left blank — get sandbox keys from [Thawani's developer docs](https://thawani-ecommerce-technologies.stoplight.io/docs/thawani-api-commerce-e-thawani-api/5534c91789a48) and set them to actually complete an online payment. Without them, choosing "Pay online" at checkout fails gracefully (the booking's held slots are released and the customer is told to try again or pay on arrival) — "Pay on arrival" works fully out of the box either way.
 
-For the Thawani webhook (`POST /api/webhooks/thawani`) to reach your local backend, it needs to be publicly reachable (e.g. via `ngrok http 8000` and a matching Thawani sandbox webhook URL) — not required to exercise the rest of the app.
-
-**Windows troubleshooting**: if "Pay online" fails even with real sandbox keys set, and your Laravel log (`backend/storage/logs/laravel.log`) shows a `cURL error 60: SSL certificate ... unable to get local issuer certificate`, PHP on Windows doesn't ship a CA bundle out of the box. Download one (e.g. `https://curl.se/ca/cacert.pem`) and point `curl.cainfo` and `openssl.cafile` at it in your `php.ini`, then restart `php artisan serve`.
-
 ## Admin Login
 
 ```
@@ -126,8 +122,4 @@ Coverage includes: court auto-assignment (same-court-for-contiguous-hours prefer
 - **Concurrency safety**: booking creation runs inside a DB transaction that locks all active courts (`SELECT ... FOR UPDATE`) before re-checking availability and inserting slots, backed by a `UNIQUE(court_id, slot_date, slot_hour)` database constraint as a last line of defense — two people can never be sold the same court-hour.
 - **Cash bookings** reserve their slots immediately (status `confirmed`, payment `unpaid`, settled at the venue). **Online bookings** hold their slots for 10 minutes while payment completes; the hold is released automatically if payment isn't confirmed in time.
 - Currency is **OMR** (matching the Thawani gateway) rather than the SAR figures used illustratively in the original spec.
-
-## Notes
-
-- The client interface requires no account; only a phone number is mandatory per booking (name/email optional).
 - Admin can close a single court, several courts, or the entire venue for a date (optionally a partial time range instead of the full day).

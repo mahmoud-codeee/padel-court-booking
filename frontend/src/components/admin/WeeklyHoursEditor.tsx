@@ -7,7 +7,7 @@ import type { CourtWorkingHour } from '@/types'
 const DAY_LABELS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
 interface WeeklyHoursEditorProps {
-  initialHours: CourtWorkingHour[]
+  initialHours: CourtWorkingHour[] 
   onSave: (hours: CourtWorkingHour[]) => Promise<void>
   saving: boolean
 }
